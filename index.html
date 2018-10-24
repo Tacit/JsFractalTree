@@ -18,8 +18,6 @@
     <script>
         function DrawTree(){
             let scale=0.7;
-            let x = 800 /2;
-            let y = 600;
             let lenght = 150;
             let minLength = 5;
             let rotateAngle = 30 ;
@@ -29,13 +27,15 @@
             rotateAngle = parseInt(slider.value);
             minLength = parseInt(sliderLength.value);
             let ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, 800, 600);
-            ctx.fillRect(0,0, 800, 600);
+            let x = canvas.width / 2;
+            let y = canvas.height;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(0,0, canvas.width, canvas.height);
             ctx.strokeStyle ="#FFFFFF";
-            draw(ctx, x, y, lenght, 90, scale, rotateAngle, minLength);
+            drawBranch(ctx, x, y, lenght, 90, scale, rotateAngle, minLength);
         }
 
-        function draw(ctx, x, y, length, angle, scale, rotateAngle, minLength) {
+        function drawBranch(ctx, x, y, length, angle, scale, rotateAngle, minLength) {
             if(length <= minLength)
                 return;
             
@@ -43,8 +43,8 @@
             x = pos.x;
             y = pos.y;
             length *= scale;
-            draw(ctx, x, y, length, angle + rotateAngle, scale, rotateAngle, minLength);
-            draw(ctx, x, y, length, angle - rotateAngle, scale, rotateAngle, minLength);
+            drawBranch(ctx, x, y, length, angle + rotateAngle, scale, rotateAngle, minLength);
+            drawBranch(ctx, x, y, length, angle - rotateAngle, scale, rotateAngle, minLength);
         }
 
         function lineToAngle(ctx, x1, y1, length, angle) {
